@@ -7,9 +7,11 @@ package com.andersoncarlosfs.model;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 /**
  * Abstract class to identify entities
@@ -96,7 +98,7 @@ public abstract class AbstractEntity<T extends Comparable<T>> implements Compara
     public String toString() {
         return getClass().getName() + "[primary key=" + getPrimaryKey() + "]";
     }
-
+    
     /**
      *
      * @throws javax.xml.bind.JAXBException

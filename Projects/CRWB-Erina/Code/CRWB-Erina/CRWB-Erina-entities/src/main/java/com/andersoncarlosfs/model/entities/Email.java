@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @RequestScoped
 @Entity
-@Table(name = "emails", schema = "public")
+@Table(name = "emails", catalog = "CRWB", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Emails.findAll", query = "SELECT e FROM Email e"),
@@ -51,7 +51,7 @@ public class Email extends AbstractEntity<Long> implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(nullable = false, length = 2147483647)
+    @Column(name = "email", nullable = false, length = 2147483647)
     private String email;
     @ManyToMany(mappedBy = "emails", fetch = FetchType.LAZY)
     private Collection<Person> persons;

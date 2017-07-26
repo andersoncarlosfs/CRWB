@@ -22,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,10 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "pictures", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p")
-    ,
-    @NamedQuery(name = "Picture.findByIdPicture", query = "SELECT p FROM Picture p WHERE p.idPicture = :idPicture")
-    ,
+    @NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p"),
+    @NamedQuery(name = "Picture.findByIdPicture", query = "SELECT p FROM Picture p WHERE p.idPicture = :idPicture"),
     @NamedQuery(name = "Picture.findByTimestamp", query = "SELECT p FROM Picture p WHERE p.timestamp = :timestamp")})
 public class Picture extends AbstractEntity<Long> implements Serializable {
 
@@ -65,6 +64,8 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
     private Date timestamp;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "pictures", fetch = FetchType.LAZY)
     private Collection<Person> persons;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "picture")
+    private Collection<Observation> observations;
 
     public Picture() {
     }
@@ -95,7 +96,7 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
         this.idPicture = idPicture;
     }
 
-    /**
+  /**
      *
      * @return the data
      */
@@ -110,7 +111,7 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
     public void setData(byte[] data) {
         this.data = data;
     }
-
+    
     /**
      *
      * @return the timestamp
@@ -142,6 +143,23 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
      */
     public void setPersons(Collection<Person> persons) {
         this.persons = persons;
+    }
+    
+    /**
+     * 
+     * @return the observation
+     */
+    @XmlTransient
+    public Collection<Observation> getObservations() {
+        return observations;
+    }
+
+    /**
+     * 
+     * @param observations the observations to set
+     */
+    public void setObservationsCollection(Collection<Observation> observations) {
+        this.observations = observations;
     }
 
     /**

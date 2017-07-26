@@ -24,11 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @RequestScoped
 @Entity
-@Table(name = "users", schema = "public")
+@Table(name = "users", catalog = "CRWB", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser"),
+    @NamedQuery(name = "User.findByAlias", query = "SELECT u FROM User u WHERE u.alias = :alias"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByTelephone", query = "SELECT u FROM User u WHERE u.telephone = :telephone"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
@@ -38,15 +39,18 @@ public class User extends AbstractEntity<Long> implements Serializable {
     @Id
     @Column(name = "id_user")
     private Long idUser;
+    @Size(max = 2147483647)
+    @Column(name = "alias", length = 2147483647)
+    private String alias;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "email", length = 2147483647)
     private String email;
+    //@Size(max = 2147483647)
+    //@Column(name = "telephone", length = 2147483647)
+    //private String telephone;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
-    private String telephone;
-    @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "password", length = 2147483647)
     private String password;
 
     public User() {
@@ -66,6 +70,22 @@ public class User extends AbstractEntity<Long> implements Serializable {
      */
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
+    }
+    
+    /**
+     *
+     * @return the alias
+     */
+    public String getAlias() {
+        return alias;
+    }
+
+    /**
+     *
+     * @param alias the alias to set
+     */
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     /**
@@ -88,17 +108,21 @@ public class User extends AbstractEntity<Long> implements Serializable {
      *
      * @return the telephone
      */
+    /*
     public String getTelephone() {
         return telephone;
     }
+    */
 
     /**
      *
      * @param telephone the telephone to set
      */
+    /*
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+    */
 
     /**
      *

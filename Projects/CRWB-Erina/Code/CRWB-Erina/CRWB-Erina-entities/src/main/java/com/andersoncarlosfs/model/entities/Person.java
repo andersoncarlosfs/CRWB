@@ -36,11 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @RequestScoped
 @Entity
-@Table(name = "persons", schema = "public")
+@Table(name = "persons", catalog = "CRWB", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
-    ,
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
     @NamedQuery(name = "Person.findByIdPerson", query = "SELECT p FROM Person p WHERE p.idPerson = :idPerson")})
 public class Person extends AbstractEntity<Long> implements Serializable {
 
@@ -52,7 +51,7 @@ public class Person extends AbstractEntity<Long> implements Serializable {
     @Column(name = "id_person", nullable = false)
     private Long idPerson;
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
-    private Collection<Group> groups;
+    private Collection<Role> roles;
     @JoinTable(name = "persons_emails", joinColumns = {
         @JoinColumn(name = "id_person", referencedColumnName = "id_person", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "id_email", referencedColumnName = "id_email", nullable = false)})
@@ -63,9 +62,9 @@ public class Person extends AbstractEntity<Long> implements Serializable {
         @JoinColumn(name = "id_picture", referencedColumnName = "id_picture", nullable = false)})
     @ManyToMany
     private Collection<Picture> pictures;
-    @JoinColumn(name = "id_legal_person", referencedColumnName = "id_legal_person", nullable = false)
+    @JoinColumn(name = "id_person_type", referencedColumnName = "id_person_type", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private LegalPerson legalPerson;
+    private PersonType personType;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "person", fetch = FetchType.LAZY)
     private NaturalPerson naturalPerson;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person", fetch = FetchType.LAZY)
@@ -78,18 +77,18 @@ public class Person extends AbstractEntity<Long> implements Serializable {
         this.idPerson = idPerson;
     }
 
-    public Person(LegalPerson legalPerson) {
-        this.legalPerson = legalPerson;
+    public Person(PersonType personType) {
+        this.personType = personType;
     }
 
-    public Person(LegalPerson legalPerson, NaturalPerson naturalPerson) {
-        this.legalPerson = legalPerson;
+    public Person(PersonType personType, NaturalPerson naturalPerson) {
+        this.personType = personType;
         this.naturalPerson = naturalPerson;
     }
 
-    public Person(Long idPerson, LegalPerson legalPerson, NaturalPerson naturalPerson) {
+    public Person(Long idPerson, PersonType personType, NaturalPerson naturalPerson) {
         this.idPerson = idPerson;
-        this.legalPerson = legalPerson;
+        this.personType = personType;
         this.naturalPerson = naturalPerson;
     }
 
@@ -111,19 +110,19 @@ public class Person extends AbstractEntity<Long> implements Serializable {
 
     /**
      *
-     * @return the groups
+     * @return the roles
      */
     @XmlTransient
-    public Collection<Group> getGroups() {
-        return groups;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
     /**
      *
-     * @param groups the groups to set
+     * @param roles the roles to set
      */
-    public void setGroups(Collection<Group> groups) {
-        this.groups = groups;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     /**
@@ -162,18 +161,18 @@ public class Person extends AbstractEntity<Long> implements Serializable {
 
     /**
      *
-     * @return the legalPerson
+     * @return the personType
      */
-    public LegalPerson getLegalPerson() {
-        return legalPerson;
+    public PersonType getPersonType() {
+        return personType;
     }
 
     /**
      *
-     * @param legalPerson the legalPerson to set
+     * @param personType the personType to set
      */
-    public void setLegalPerson(LegalPerson legalPerson) {
-        this.legalPerson = legalPerson;
+    public void setPersonType(PersonType personType) {
+        this.personType = personType;
     }
 
     /**

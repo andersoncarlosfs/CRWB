@@ -3,6 +3,10 @@
   <persistence-unit name="CRWB-ErinaPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/CRWB-Erina</jta-data-source>
+    <class>com.andersoncarlosfs.model.entities.UsersRoles</class>
+    <class>com.andersoncarlosfs.model.entities.PersonType</class>
+    <class>com.andersoncarlosfs.model.entities.Role</class>
+    <class>com.andersoncarlosfs.model.entities.Observation</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="PostgreSQL"/>

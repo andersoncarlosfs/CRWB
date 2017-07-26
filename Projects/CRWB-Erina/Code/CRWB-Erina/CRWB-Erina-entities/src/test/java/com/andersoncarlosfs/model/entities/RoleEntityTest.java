@@ -11,18 +11,18 @@ import com.andersoncarlosfs.model.AbstractEntityTest;
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class GroupEntityTest extends AbstractEntityTest<Group, Integer> {
+public class RoleEntityTest extends AbstractEntityTest<Role, Short> {
 
-    private Group group = new Group("Test");
+    private Role role = new Role("Test");
 
     @Override
-    public Group getObject() {
-        return group;
+    public Role getObject() {
+        return role;
     }
 
     @Override
-    public Group getCloneModified() throws CloneNotSupportedException {
-        Group modified = super.getCloneModified();
+    public Role getCloneModified() throws CloneNotSupportedException {
+        Role modified = super.getCloneModified();
         modified.setName("Modified");
         return modified;
     }

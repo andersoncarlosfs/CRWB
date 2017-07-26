@@ -7,6 +7,7 @@ package com.andersoncarlosfs.model.entities;
 
 import com.andersoncarlosfs.model.AbstractEntity;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,11 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @RequestScoped
 @Entity
 //@Access(AccessType.FIELD)
-@Table(name = "natural_persons", schema = "public")
+@Table(name = "natural_persons", catalog = "CRWB", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "NaturalPerson.findAll", query = "SELECT n FROM NaturalPerson n"),
@@ -62,6 +65,8 @@ public class NaturalPerson extends AbstractEntity<Long> implements Serializable 
     private Person person;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "naturalPerson", fetch = FetchType.LAZY)
     private Account account;
+    @OneToMany(mappedBy = "naturalPerson")
+    private Collection<Observation> observations;
 
     public NaturalPerson() {
     }
@@ -167,6 +172,23 @@ public class NaturalPerson extends AbstractEntity<Long> implements Serializable 
      */
     public void setAccount(Account account) {
         this.account = account;
+    }
+    
+    /**
+     * 
+     * @return the observations
+     */
+    @XmlTransient
+    public Collection<Observation> getObservations() {
+        return observations;
+    }
+    
+    /**
+     * 
+     * @param observations the observations to set
+     */
+    public void setObservations(Collection<Observation> observations) {
+        this.observations = observations;
     }
 
     /**

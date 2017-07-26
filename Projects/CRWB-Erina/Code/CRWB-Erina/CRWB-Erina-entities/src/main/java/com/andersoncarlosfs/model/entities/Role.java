@@ -34,62 +34,65 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @RequestScoped
 @Entity
-@Table(name = "groups", schema = "public")
+@Table(name = "roles", catalog = "CRWB", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Group.findAll", query = "SELECT g FROM Group g"),
-    @NamedQuery(name = "Group.findByIdGroup", query = "SELECT g FROM Group g WHERE g.idGroup = :idGroup"),
-    @NamedQuery(name = "Group.findByName", query = "SELECT g FROM Group g WHERE g.name = :name")})
-public class Group extends AbstractEntity<Integer> implements Serializable {
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
+    @NamedQuery(name = "Role.findByIdRole", query = "SELECT r FROM Role r WHERE r.idRole = :idRole"),
+    @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")})
+public class Role extends AbstractEntity<Short> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_id_group_seq")
-    @SequenceGenerator(name = "groups_id_group_seq", allocationSize = 1, sequenceName = "groups_id_group_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_role_seq")
+    @SequenceGenerator(name = "roles_id_role_seq", allocationSize = 1, sequenceName = "roles_id_role_seq")
     @Basic(optional = false)
-    @Column(name = "id_group", nullable = false)
-    private Integer idGroup;
+    @Column(name = "id_role", nullable = false)
+    private Short idRole;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(nullable = false, length = 2147483647)
+    @Column(name = "name", nullable = true, length = 2147483647)
     private String name;
-    @JoinTable(name = "persons_groups", joinColumns = {
-        @JoinColumn(name = "id_group", referencedColumnName = "id_group", nullable = false)}, inverseJoinColumns = {
+    @Size(max = 2147483647)
+    @Column(name = "description", nullable = true, length = 2147483647)
+    private String description;
+    @JoinTable(name = "persons_roles", joinColumns = {
+        @JoinColumn(name = "id_role", referencedColumnName = "id_role", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "id_person", referencedColumnName = "id_person", nullable = false)})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Person> persons;
 
-    public Group() {
+    public Role() {
     }
 
-    public Group(Integer idGroup) {
-        this.idGroup = idGroup;
+    public Role(Short idRole) {
+        this.idRole = idRole;
     }
 
-    public Group(String name) {
+    public Role(String name) {
         this.name = name;
     }
 
-    public Group(Integer idGroup, String name) {
-        this.idGroup = idGroup;
+    public Role(Short idRole, String name) {
+        this.idRole = idRole;
         this.name = name;
     }
 
     /**
      *
-     * @return the idGroup
+     * @return the idRole
      */
-    public Integer getIdGroup() {
-        return idGroup;
+    public Short getIdRole() {
+        return idRole;
     }
 
     /**
      *
-     * @param idGroup the idGroup to set
+     * @param idRole the idRole to set
      */
-    public void setIdGroup(Integer idGroup) {
-        this.idGroup = idGroup;
+    public void setIdRole(Short idRole) {
+        this.idRole = idRole;
     }
 
     /**
@@ -106,6 +109,22 @@ public class Group extends AbstractEntity<Integer> implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    /**
+     * 
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * 
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -128,11 +147,11 @@ public class Group extends AbstractEntity<Integer> implements Serializable {
     /**
      *
      * @see AbstractEntity#getPrimaryKey()
-     * @return the idGroup
+     * @return the idRole
      */
     @Override
-    public Integer getPrimaryKey() {
-        return idGroup;
+    public Short getPrimaryKey() {
+        return idRole;
     }
 
 }
