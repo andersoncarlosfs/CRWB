@@ -6,7 +6,7 @@
 package com.andersoncarlosfs.model.daos;
 
 import com.andersoncarlosfs.model.AbstractDAO;
-import com.andersoncarlosfs.model.entities.LegalPerson;
+import com.andersoncarlosfs.model.entities.Role;
 import javax.enterprise.context.RequestScoped;
 
 /**
@@ -14,7 +14,7 @@ import javax.enterprise.context.RequestScoped;
  * @author Anderson Carlos Ferreira da Silva
  */
 @RequestScoped
-public class LegalPersonDAO extends AbstractDAO<LegalPerson, Integer> {
+public class RoleDAO extends AbstractDAO<Role, Short> {
 
     /**
      *
@@ -22,8 +22,8 @@ public class LegalPersonDAO extends AbstractDAO<LegalPerson, Integer> {
      * @return
      */
     @Override
-    public Class<LegalPerson> getClasse() {
-        return LegalPerson.class;
+    public Class<Role> getClasse() {
+        return Role.class;
     }
 
 }

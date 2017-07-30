@@ -5,9 +5,9 @@
  */
 package com.andersoncarlosfs.controller.services;
 
-import com.andersoncarlosfs.model.daos.LegalPersonDAO;
+import com.andersoncarlosfs.model.daos.RoleDAO;
 import com.andersoncarlosfs.model.AbstractService;
-import com.andersoncarlosfs.model.entities.LegalPerson;
+import com.andersoncarlosfs.model.entities.Role;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
@@ -16,10 +16,10 @@ import javax.inject.Inject;
  * @author Anderson Carlos Ferreira da Silva
  */
 @SessionScoped
-public class LegalPersonService extends AbstractService<LegalPersonDAO, LegalPerson, Integer> {
+public class RoleService extends AbstractService<RoleDAO, Role, Short> {
 
     @Inject
-    private LegalPersonDAO dao;
+    private RoleDAO dao;
 
     /**
      *
@@ -27,7 +27,7 @@ public class LegalPersonService extends AbstractService<LegalPersonDAO, LegalPer
      * @return the dao
      */
     @Override
-    public LegalPersonDAO getDAO() {
+    public RoleDAO getDAO() {
         return dao;
     }
 

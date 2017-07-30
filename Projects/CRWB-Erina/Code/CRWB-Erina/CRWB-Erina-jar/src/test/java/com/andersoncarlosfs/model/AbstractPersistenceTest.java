@@ -47,9 +47,9 @@ public abstract class AbstractPersistenceTest<S extends AbstractEntity<T>, T ext
 
         // Configure the internal EclipseLink connection pool
         properties.put(JDBC_DRIVER, "org.postgresql.Driver");
-        properties.put(JDBC_URL, "jdbc:postgresql://localhost:5432/CRWB-Erina");
+        properties.put(JDBC_URL, "jdbc:postgresql://192.168.56.101:5432/CRWB");
         properties.put(JDBC_USER, "postgres");
-        properties.put(JDBC_PASSWORD, "localhost");
+        properties.put(JDBC_PASSWORD, "postgres");
 
         properties.put(TARGET_DATABASE, TargetDatabase.PostgreSQL);
 
@@ -67,7 +67,7 @@ public abstract class AbstractPersistenceTest<S extends AbstractEntity<T>, T ext
         properties.put(TARGET_SERVER, TargetServer.None);
 
         Map persistenceUnits = new HashMap();
-        persistenceUnits.put("CRWB-ErinaPU", properties);
+        persistenceUnits.put("CRWBPU", properties);
 
         Map compositePU = new HashMap();
 
@@ -80,7 +80,7 @@ public abstract class AbstractPersistenceTest<S extends AbstractEntity<T>, T ext
         // Ensure that no server-platform is configured
         compositePU.put(TARGET_SERVER, TargetServer.None);
 
-        emf = Persistence.createEntityManagerFactory("CRWB-ErinaPU", properties);
+        emf = Persistence.createEntityManagerFactory("CRWBPU", properties);
     }
 
     /**

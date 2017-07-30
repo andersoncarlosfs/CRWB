@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @RequestScoped
 @Entity
 //@Access(AccessType.FIELD)
-@Table(name = "natural_persons", catalog = "CRWB", schema = "public")
+@Table(name = "natural_persons", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "NaturalPerson.findAll", query = "SELECT n FROM NaturalPerson n"),

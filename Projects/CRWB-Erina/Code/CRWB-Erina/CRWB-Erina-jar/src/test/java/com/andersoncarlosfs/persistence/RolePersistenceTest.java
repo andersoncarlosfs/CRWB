@@ -6,23 +6,23 @@
 package com.andersoncarlosfs.persistence;
 
 import com.andersoncarlosfs.model.AbstractPersistenceTest;
-import com.andersoncarlosfs.model.entities.Group;
+import com.andersoncarlosfs.model.entities.Role;
 
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class GroupPersistenceTest extends AbstractPersistenceTest<Group, Integer> {
+public class RolePersistenceTest extends AbstractPersistenceTest<Role, Short> {
 
-    private Group entity = new Group("Test");
+    private Role entity = new Role("Test");
 
     @Override
     public Class getClasse() {
-        return Group.class;
+        return Role.class;
     }
 
     @Override
-    public Group getObject() {
+    public Role getObject() {
         return entity;
     }
 
