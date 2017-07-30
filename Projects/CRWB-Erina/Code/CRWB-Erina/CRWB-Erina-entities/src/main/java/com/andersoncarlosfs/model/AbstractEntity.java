@@ -7,11 +7,9 @@ package com.andersoncarlosfs.model;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 /**
  * Abstract class to identify entities
