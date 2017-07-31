@@ -169,7 +169,7 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
      */
     @Override
     public Long getPrimaryKey() {
-        return getIdPicture();
+        return idPicture;
     }
 
 }

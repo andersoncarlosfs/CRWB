@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.model.entities;
 
+import com.andersoncarlosfs.model.AbstractEntity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -36,11 +37,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "observations", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Observation.findAll", query = "SELECT o FROM Observation o")
-    , @NamedQuery(name = "Observation.findByIdObservation", query = "SELECT o FROM Observation o WHERE o.idObservation = :idObservation")
-    , @NamedQuery(name = "Observation.findByText", query = "SELECT o FROM Observation o WHERE o.text = :text")
-    , @NamedQuery(name = "Observation.findByDate", query = "SELECT o FROM Observation o WHERE o.date = :date")})
-public class Observation implements Serializable {
+    @NamedQuery(name = "Observation.findAll", query = "SELECT o FROM Observation o"), 
+    @NamedQuery(name = "Observation.findByIdObservation", query = "SELECT o FROM Observation o WHERE o.idObservation = :idObservation"), 
+    @NamedQuery(name = "Observation.findByText", query = "SELECT o FROM Observation o WHERE o.text = :text"), 
+    @NamedQuery(name = "Observation.findByDate", query = "SELECT o FROM Observation o WHERE o.date = :date")})
+public class Observation extends AbstractEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -196,6 +197,14 @@ public class Observation implements Serializable {
         this.picture = picture;
     }
 
-    
+    /**
+     *
+     * @see AbstractEntity#getPrimaryKey()
+     * @return the idObservation
+     */
+    @Override
+    public Long getPrimaryKey() {
+        return idObservation;
+    }
     
 }
