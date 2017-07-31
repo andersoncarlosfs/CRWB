@@ -22,7 +22,7 @@ import javax.persistence.PersistenceException;
  * @param <S> the entity type
  * @param <T> the identifier type
  */
-public abstract class AbstractController<V extends AbstractService<U, S, T>, U extends AbstractDAO<S, T>, S extends AbstractEntity<T>, T extends Comparable<T>> implements Serializable {
+public abstract class AbstractBean<V extends AbstractService<U, S, T>, U extends AbstractDAO<S, T>, S extends AbstractEntity<T>, T extends Comparable<T>> implements Serializable {
 
     @Inject
     private AbstractService<U, S, T> service;

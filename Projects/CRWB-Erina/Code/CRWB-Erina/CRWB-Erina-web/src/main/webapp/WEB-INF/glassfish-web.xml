@@ -2,15 +2,15 @@
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app>
     <security-role-mapping>
-        <role-name>Administrators</role-name>
-        <group-name>Administrators</group-name>
+        <role-name>Administrator</role-name>
+        <group-name>Administrator</group-name>
     </security-role-mapping>
     <security-role-mapping>
-        <role-name>Users</role-name>
-        <group-name>Users</group-name>
+        <role-name>User</role-name>
+        <group-name>User</group-name>
     </security-role-mapping>
     <resource-ref>
-        <res-ref-name>jdbc/CRWB-Erina</res-ref-name>
-        <jndi-name>jdbc/CRWB-Erina</jndi-name>
+        <res-ref-name>jdbc/CRWB</res-ref-name>
+        <jndi-name>jdbc/CRWB</jndi-name>
     </resource-ref>
 </glassfish-web-app>

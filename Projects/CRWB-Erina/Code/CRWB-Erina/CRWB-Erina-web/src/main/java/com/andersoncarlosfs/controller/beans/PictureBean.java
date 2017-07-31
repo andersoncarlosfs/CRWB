@@ -1,7 +1,7 @@
 package com.andersoncarlosfs.controller.beans;
 
 import com.andersoncarlosfs.controller.services.PictureService;
-import com.andersoncarlosfs.model.AbstractController;
+import com.andersoncarlosfs.model.AbstractBean;
 import com.andersoncarlosfs.model.AbstractConverter;
 import com.andersoncarlosfs.model.daos.PictureDAO;
 import com.andersoncarlosfs.model.entities.Picture;
@@ -17,7 +17,7 @@ import javax.xml.bind.JAXBException;
  */
 @Named
 @SessionScoped
-public class PictureBean extends AbstractController<PictureService, PictureDAO, Picture, java.lang.Long> {
+public class PictureBean extends AbstractBean<PictureService, PictureDAO, Picture, java.lang.Long> {
 
     /**
      *

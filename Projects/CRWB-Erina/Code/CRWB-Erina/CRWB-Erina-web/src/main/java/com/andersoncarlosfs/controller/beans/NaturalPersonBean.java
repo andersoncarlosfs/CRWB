@@ -1,7 +1,7 @@
 package com.andersoncarlosfs.controller.beans;
 
 import com.andersoncarlosfs.controller.services.NaturalPersonService;
-import com.andersoncarlosfs.model.AbstractController;
+import com.andersoncarlosfs.model.AbstractBean;
 import com.andersoncarlosfs.model.AbstractConverter;
 import com.andersoncarlosfs.model.daos.NaturalPersonDAO;
 import com.andersoncarlosfs.model.entities.NaturalPerson;
@@ -17,7 +17,7 @@ import javax.xml.bind.JAXBException;
  */
 @Named
 @SessionScoped
-public class NaturalPersonBean extends AbstractController<NaturalPersonService, NaturalPersonDAO, NaturalPerson, java.lang.Long> {
+public class NaturalPersonBean extends AbstractBean<NaturalPersonService, NaturalPersonDAO, NaturalPerson, java.lang.Long> {
 
     /**
      *

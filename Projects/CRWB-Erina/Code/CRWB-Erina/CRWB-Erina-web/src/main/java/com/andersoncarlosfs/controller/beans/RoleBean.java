@@ -1,10 +1,11 @@
 package com.andersoncarlosfs.controller.beans;
 
-import com.andersoncarlosfs.controller.services.EmailService;
+import com.andersoncarlosfs.controller.services.RoleService;
 import com.andersoncarlosfs.model.AbstractBean;
 import com.andersoncarlosfs.model.AbstractConverter;
-import com.andersoncarlosfs.model.daos.EmailDAO;
-import com.andersoncarlosfs.model.entities.Email;
+
+import com.andersoncarlosfs.model.daos.RoleDAO;
+import com.andersoncarlosfs.model.entities.Role;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.convert.Converter;
@@ -17,13 +18,13 @@ import javax.xml.bind.JAXBException;
  */
 @Named
 @SessionScoped
-public class EmailBean extends AbstractBean<EmailService, EmailDAO, Email, java.lang.Long> {
+public class RoleBean extends AbstractBean<RoleService, RoleDAO, Role, Short> {
 
     /**
      *
      */
-    @FacesConverter(forClass = Email.class)
-    public static class EmailConverter extends AbstractConverter<EmailDAO, Email, java.lang.Long> implements Converter {
+    @FacesConverter(forClass = Role.class)
+    public static class RoleConverter extends AbstractConverter<RoleDAO, Role, Short> implements Converter {
 
         /**
          *
@@ -32,8 +33,8 @@ public class EmailBean extends AbstractBean<EmailService, EmailDAO, Email, java.
          * @return
          */
         @Override
-        protected java.lang.Long getKey(String value) throws JAXBException {
-            return new java.lang.Long(value);
+        protected Short getKey(String value) throws JAXBException {
+            return new Short(value);
         }
 
     }

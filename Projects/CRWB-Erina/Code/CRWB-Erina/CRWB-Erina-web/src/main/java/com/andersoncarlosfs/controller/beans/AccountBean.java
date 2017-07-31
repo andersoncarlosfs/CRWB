@@ -1,7 +1,7 @@
 package com.andersoncarlosfs.controller.beans;
 
 import com.andersoncarlosfs.controller.services.AccountService;
-import com.andersoncarlosfs.model.AbstractController;
+import com.andersoncarlosfs.model.AbstractBean;
 import com.andersoncarlosfs.model.AbstractConverter;
 import com.andersoncarlosfs.model.daos.AccountDAO;
 import com.andersoncarlosfs.model.entities.Account;
@@ -17,7 +17,7 @@ import javax.xml.bind.JAXBException;
  */
 @Named
 @SessionScoped
-public class AccountBean extends AbstractController<AccountService, AccountDAO, Account, java.lang.Long> {
+public class AccountBean extends AbstractBean<AccountService, AccountDAO, Account, java.lang.Long> {
 
     /**
      *

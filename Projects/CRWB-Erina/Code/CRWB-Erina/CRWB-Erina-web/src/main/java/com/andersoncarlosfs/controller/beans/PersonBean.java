@@ -1,7 +1,7 @@
 package com.andersoncarlosfs.controller.beans;
 
 import com.andersoncarlosfs.controller.services.PersonService;
-import com.andersoncarlosfs.model.AbstractController;
+import com.andersoncarlosfs.model.AbstractBean;
 import com.andersoncarlosfs.model.AbstractConverter;
 import com.andersoncarlosfs.model.daos.PersonDAO;
 import com.andersoncarlosfs.model.entities.Person;
@@ -17,7 +17,7 @@ import javax.xml.bind.JAXBException;
  */
 @Named
 @SessionScoped
-public class PersonBean extends AbstractController<PersonService, PersonDAO, Person, java.lang.Long> {
+public class PersonBean extends AbstractBean<PersonService, PersonDAO, Person, java.lang.Long> {
 
     /**
      *
