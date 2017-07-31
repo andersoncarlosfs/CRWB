@@ -144,15 +144,16 @@ public abstract class AbstractDAO<S extends AbstractEntity<T>, T extends Compara
     /**
      * List
      *
-     * @param range
+     * @param from
+     * @param to
      * @return the list
      */
-    public List<S> listByRange(int[] range) {
+    public List<S> listByRange(int from, int to) {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(getClasse()));
         Query q = em.createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
+        q.setMaxResults(to - from + 1);
+        q.setFirstResult(from);
         return q.getResultList();
     }
 
