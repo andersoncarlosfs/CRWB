@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.controller.service;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
@@ -12,12 +13,12 @@ import javax.ws.rs.core.Application;
  *
  * @author anderson
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("/resource")
 public class ApplicationConfig extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        Set<Class<?>> resources = new java.util.HashSet<>();
+        Set<Class<?>> resources = new HashSet<>();
         addRestResourceClasses(resources);
         return resources;
     }
@@ -29,6 +30,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(com.andersoncarlosfs.controller.services.RoleService.class);
     }
     
 }
