@@ -47,13 +47,13 @@ public abstract class AbstractService<U extends AbstractDAO<S, T>, S extends Abs
     /**
      * Update
      *
-     * @param identificator
+     * @param primaryKey
      * @param entity
      */
     @PUT
     @Path("{identificator}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void update(@PathParam("identificator") String identificator, S entity) {
+    public void update(@PathParam("identificator") T primaryKey, S entity) {
         getDAO().update(entity);
     }
 

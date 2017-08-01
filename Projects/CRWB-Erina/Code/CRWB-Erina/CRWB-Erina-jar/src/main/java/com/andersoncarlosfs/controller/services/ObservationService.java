@@ -10,12 +10,14 @@ import com.andersoncarlosfs.model.AbstractService;
 import com.andersoncarlosfs.model.entities.Observation;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Path;
 
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
 @SessionScoped
+@Path("/observation")
 public class ObservationService extends AbstractService<ObservationDAO, Observation, Long> {
 
     @Inject
