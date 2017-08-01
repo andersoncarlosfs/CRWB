@@ -24,7 +24,7 @@ import javax.transaction.Transactional;
  */
 public abstract class AbstractDAO<S extends AbstractEntity<T>, T extends Comparable<T>> {
 
-    @PersistenceContext(unitName = "CompositePU")
+    @PersistenceContext(unitName = "CRWBPU")
     private EntityManager em;
 
     /**
