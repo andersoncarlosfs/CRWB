@@ -83,6 +83,12 @@ public class Observation extends AbstractEntity<Long> implements Serializable {
         this.text = text;
         this.date = date;
     }
+    
+    public Observation(String text, Date date, Picture picture) {
+        this.text = text;
+        this.date = date;
+        this.picture = picture;
+    }
 
     /**
      * 

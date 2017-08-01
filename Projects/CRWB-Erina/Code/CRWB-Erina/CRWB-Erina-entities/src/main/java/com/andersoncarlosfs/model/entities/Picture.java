@@ -57,11 +57,6 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
     @Lob
     @Column(nullable = false)
     private byte[] data;
-    @Basic(optional = false)
-    @NotNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "pictures", fetch = FetchType.LAZY)
     private Collection<Person> persons;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "picture")
@@ -74,12 +69,15 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
         this.idPicture = idPicture;
     }
 
-    public Picture(Long idPicture, byte[] data, Date timestamp) {
+    public Picture(Long idPicture, byte[] data) {
         this.idPicture = idPicture;
         this.data = data;
-        this.timestamp = timestamp;
     }
 
+    public Picture(byte[] data) {
+        this.data = data;
+    }    
+    
     /**
      *
      * @return the idPicture
@@ -110,22 +108,6 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
      */
     public void setData(byte[] data) {
         this.data = data;
-    }
-    
-    /**
-     *
-     * @return the timestamp
-     */
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     *
-     * @param timestamp the timestamp to set
-     */
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
     }
 
     /**
