@@ -15,11 +15,6 @@ import com.andersoncarlosfs.model.entities.Role;
 public class RoleServiceTest extends AbstractServiceTest<Role, Short> {
 
     private Role entity = new Role("Test");
-
-    @Override
-    public Class getClasse() {
-        return Role.class;
-    }
     
     @Override
     public Class getResource() {

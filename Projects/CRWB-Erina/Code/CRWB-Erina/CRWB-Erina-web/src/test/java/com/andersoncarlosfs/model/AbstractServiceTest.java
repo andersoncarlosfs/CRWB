@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.model;
 
+import javax.ws.rs.Path;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -74,14 +75,8 @@ public abstract class AbstractServiceTest<S extends AbstractEntity<T>, T extends
      * @return 
      */
     protected WebTarget getTarget() {
-        return target(getClasse().getSimpleName().toLowerCase());
+        return target(((Path) getResource().getDeclaredAnnotation(Path.class)).value());
     }
-    
-    /**
-     *
-     * @return
-     */
-    public abstract Class getClasse();
     
     /**
      * 
