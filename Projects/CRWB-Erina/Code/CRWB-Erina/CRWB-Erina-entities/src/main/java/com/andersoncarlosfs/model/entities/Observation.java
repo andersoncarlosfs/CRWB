@@ -69,7 +69,7 @@ public class Observation extends AbstractEntity<Long> implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Observation observation;
     @JoinColumn(name = "id_picture", referencedColumnName = "id_picture", nullable = false)
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Picture picture;
 
     public Observation() {

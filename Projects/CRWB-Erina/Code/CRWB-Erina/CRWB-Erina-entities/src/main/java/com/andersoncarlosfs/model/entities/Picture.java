@@ -53,9 +53,9 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
     @Lob
     @Column(nullable = false)
     private byte[] data;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "pictures", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.REFRESH}, mappedBy = "pictures", fetch = FetchType.LAZY)
     private Collection<Person> persons;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "picture")
+    @OneToMany(cascade = {CascadeType.REFRESH}, mappedBy = "picture")
     private Collection<Observation> observations;
 
     public Picture() {
@@ -72,7 +72,12 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
 
     public Picture(byte[] data) {
         this.data = data;
-    }    
+    }  
+    
+    public Picture(byte[] data, Collection<Observation> observations) {
+        this.data = data;
+        this.observations = observations;
+    }  
     
     /**
      *
@@ -136,7 +141,7 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
      * 
      * @param observations the observations to set
      */
-    public void setObservationsCollection(Collection<Observation> observations) {
+    public void setObservations(Collection<Observation> observations) {
         this.observations = observations;
     }
 

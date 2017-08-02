@@ -11,6 +11,7 @@ import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -48,7 +49,10 @@ public class ObservationService extends AbstractService<ObservationDAO, Observat
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     public void create(byte[] data) throws IOException {
-        dao.create(new Observation("Teste", new Date(), new Picture(data)));
+        Picture picture = new Picture(data, new HashSet<Observation>());
+        Observation observation = new Observation("Teste", new Date(), picture);
+        picture.getObservations().add(observation);
+        dao.create(observation);
     }
 
 }
