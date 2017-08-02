@@ -9,8 +9,6 @@ import com.andersoncarlosfs.model.daos.ObservationDAO;
 import com.andersoncarlosfs.model.AbstractService;
 import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -22,6 +20,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 /**
  *
