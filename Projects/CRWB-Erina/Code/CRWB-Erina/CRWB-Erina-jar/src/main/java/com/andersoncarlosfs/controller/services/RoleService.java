@@ -17,7 +17,7 @@ import javax.ws.rs.Path;
  * @author Anderson Carlos Ferreira da Silva
  */
 @SessionScoped
-@Path("/role")
+@Path("role")
 public class RoleService extends AbstractService<RoleDAO, Role, Short> {
 
     @Inject

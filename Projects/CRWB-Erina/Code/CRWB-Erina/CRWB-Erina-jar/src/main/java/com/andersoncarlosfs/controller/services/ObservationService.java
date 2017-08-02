@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
  * @author Anderson Carlos Ferreira da Silva
  */
 @SessionScoped
-@Path("/observation")
+@Path("observation")
 public class ObservationService extends AbstractService<ObservationDAO, Observation, Long> {
 
     @Inject
