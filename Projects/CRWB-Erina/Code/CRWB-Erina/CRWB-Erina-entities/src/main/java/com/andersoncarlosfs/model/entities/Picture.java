@@ -43,8 +43,8 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pictures_id_person_seq")
-    @SequenceGenerator(name = "pictures_id_person_seq", allocationSize = 1, sequenceName = "pictures_id_person_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pictures_id_picture_seq")
+    @SequenceGenerator(name = "pictures_id_picture_seq", allocationSize = 1, sequenceName = "pictures_id_picture_seq")
     @Basic(optional = false)
     @Column(name = "id_picture", nullable = false)
     private Long idPicture;
