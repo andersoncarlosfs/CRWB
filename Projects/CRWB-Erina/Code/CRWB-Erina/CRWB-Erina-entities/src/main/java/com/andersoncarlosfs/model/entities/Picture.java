@@ -41,8 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Picture.findAll", query = "SELECT p FROM Picture p"),
-    @NamedQuery(name = "Picture.findByIdPicture", query = "SELECT p FROM Picture p WHERE p.idPicture = :idPicture"),
-    @NamedQuery(name = "Picture.findByTimestamp", query = "SELECT p FROM Picture p WHERE p.timestamp = :timestamp")})
+    @NamedQuery(name = "Picture.findByIdPicture", query = "SELECT p FROM Picture p WHERE p.idPicture = :idPicture")})
 public class Picture extends AbstractEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
