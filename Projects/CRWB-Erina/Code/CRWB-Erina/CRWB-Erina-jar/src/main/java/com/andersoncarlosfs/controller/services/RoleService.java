@@ -10,14 +10,12 @@ import com.andersoncarlosfs.model.AbstractService;
 import com.andersoncarlosfs.model.entities.Role;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Path;
 
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
 @SessionScoped
-@Path("role")
 public class RoleService extends AbstractService<RoleDAO, Role, Short> {
 
     @Inject
