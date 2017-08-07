@@ -5,8 +5,12 @@
  */
 package com.andersoncarlosfs.controller.application;
 
+import com.andersoncarlosfs.controller.resources.ObservationResource;
+import java.util.HashSet;
+import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 /**
  *
@@ -14,5 +18,17 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationPath("resource")
 public class ApplicationConfiguration extends Application {
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Set<Class<?>> getClasses() {
+        final Set<Class<?>> resources = new HashSet<Class<?>>();
+        resources.add(ObservationResource.class);
+        resources.add(MultiPartFeature.class);
+        return resources;
+    }
     
 }
