@@ -20,7 +20,10 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -52,11 +55,13 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
      */
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public void create(byte[] data) throws IOException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String create(byte[] data, @Context UriInfo context) throws IOException {
         Picture picture = new Picture(data, new HashSet<Observation>());
         Observation observation = new Observation("Teste", new Date(), picture);
         picture.getObservations().add(observation);
         getService().getDAO().create(observation);
+        return context.getAbsolutePathBuilder().path(observation.getPrimaryKey().toString()).build().toString();
     }
    
     /**
@@ -66,7 +71,8 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
      */
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public void create(@FormDataParam("file") InputStream stream, @FormDataParam("file") FormDataContentDisposition details) throws IOException {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void create(@FormDataParam("file") InputStream stream, @FormDataParam("file") FormDataContentDisposition details, @FormDataParam("timestamp") Date date, @Context UriInfo context) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int read = 0;
         byte[] data = new byte[4096];
@@ -75,7 +81,7 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         }
         buffer.flush();
         stream.close();
-        create(buffer.toByteArray());
+        create(buffer.toByteArray(), context);
     }
 
 }
