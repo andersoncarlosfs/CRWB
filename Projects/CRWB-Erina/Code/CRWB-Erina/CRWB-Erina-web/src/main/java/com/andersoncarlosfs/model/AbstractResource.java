@@ -7,7 +7,6 @@ package com.andersoncarlosfs.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,17 +28,11 @@ import javax.ws.rs.core.MediaType;
  */
 public abstract class AbstractResource<V extends AbstractService<U, S, T>, U extends AbstractDAO<S, T>, S extends AbstractEntity<T>, T extends Comparable<T>> implements Serializable {
 
-    @Inject
-    private AbstractService<U, S, T> service;
-
-    
     /**
      *
      * @return the service
      */
-    protected V getService() {
-        return (V) service;
-    }
+    protected abstract V getService();
     
     /**
      * Create
