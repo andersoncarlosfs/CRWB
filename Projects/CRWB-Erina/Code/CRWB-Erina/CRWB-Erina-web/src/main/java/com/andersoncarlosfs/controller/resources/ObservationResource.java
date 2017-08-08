@@ -61,14 +61,15 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.TEXT_PLAIN)
-    public String create(byte[] data, @Context UriInfo context) throws IOException {
+    public String create(byte[] data, @Context UriInfo context) throws IOException, InterruptedException {
         java.nio.file.Path path = Files.createTempFile(null, null);
         File file = path.toFile();
         FileOutputStream stream = new FileOutputStream(file);
         stream.write(data);
         stream.close();
-        ProcessBuilder builder = new ProcessBuilder("python", "~/test/predict.py", path.toAbsolutePath().toString());
+        ProcessBuilder builder = new ProcessBuilder("python", "/home/ubuntu/test/predict.py", path.toAbsolutePath().toString());
         Process process = builder.start();
+        process.waitFor();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder output = new StringBuilder();
         String line = null;
@@ -91,7 +92,7 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public String create(@FormDataParam("file") InputStream stream, @FormDataParam("file") FormDataContentDisposition details, @Context UriInfo context) throws IOException {
+    public String create(@FormDataParam("file") InputStream stream, @FormDataParam("file") FormDataContentDisposition details, @Context UriInfo context) throws IOException, InterruptedException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int read = 0;
         byte[] data = new byte[4096];
