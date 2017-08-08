@@ -71,8 +71,8 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
      */
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(@FormDataParam("file") InputStream stream, @FormDataParam("file") FormDataContentDisposition details, @FormDataParam("timestamp") Date date, @Context UriInfo context) throws IOException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String create(@FormDataParam("file") InputStream stream, @FormDataParam("file") FormDataContentDisposition details, @Context UriInfo context) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int read = 0;
         byte[] data = new byte[4096];
@@ -81,7 +81,7 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         }
         buffer.flush();
         stream.close();
-        create(buffer.toByteArray(), context);
+        return create(buffer.toByteArray(), context);
     }
 
 }
