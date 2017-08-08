@@ -10,9 +10,14 @@ import com.andersoncarlosfs.model.AbstractResource;
 import com.andersoncarlosfs.model.daos.ObservationDAO;
 import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.HashSet;
 import javax.enterprise.context.RequestScoped;
@@ -57,8 +62,22 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.TEXT_PLAIN)
     public String create(byte[] data, @Context UriInfo context) throws IOException {
+        java.nio.file.Path path = Files.createTempFile(null, null);
+        File file = path.toFile();
+        FileOutputStream stream = new FileOutputStream(file);
+        stream.write(data);
+        stream.close();
+        ProcessBuilder builder = new ProcessBuilder("python", "~/test/predict.py", path.toAbsolutePath().toString());
+        Process process = builder.start();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        StringBuilder output = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            output.append(line);
+        }
+        file.delete();
         Picture picture = new Picture(data, new HashSet<Observation>());
-        Observation observation = new Observation("Teste", new Date(), picture);
+        Observation observation = new Observation(output.toString(), new Date(), picture);
         picture.getObservations().add(observation);
         getService().getDAO().create(observation);
         return context.getAbsolutePathBuilder().path(observation.getPrimaryKey().toString()).build().toString();
