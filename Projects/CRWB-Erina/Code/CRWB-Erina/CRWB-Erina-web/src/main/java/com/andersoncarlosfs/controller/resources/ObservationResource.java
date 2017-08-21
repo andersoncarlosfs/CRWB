@@ -67,7 +67,7 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         FileOutputStream stream = new FileOutputStream(file);
         stream.write(data);
         stream.close();
-        ProcessBuilder builder = new ProcessBuilder("python", "/home/ubuntu/test/predict.py", path.toAbsolutePath().toString());
+        ProcessBuilder builder = new ProcessBuilder("python", "/home/fandres/scripts/predict.py", path.toAbsolutePath().toString());
         Process process = builder.start();
         process.waitFor();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
