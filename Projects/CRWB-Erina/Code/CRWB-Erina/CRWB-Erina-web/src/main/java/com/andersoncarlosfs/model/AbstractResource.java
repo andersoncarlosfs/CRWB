@@ -15,7 +15,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * Abstract class to manipulate Beans
@@ -73,12 +76,14 @@ public abstract class AbstractResource<V extends AbstractService<U, S, T>, U ext
      * Find
      *
      * @param primaryKey
+     * @param eager
+     * @param context
      * @return
      */
     @GET
     @Path("{identificator}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public S findByPrimaryKey(@PathParam("identificator") T primaryKey) {
+    public S findByPrimaryKey(@PathParam("identificator") T primaryKey, @QueryParam("eager") boolean eager, @Context UriInfo context) {
         return getService().getDAO().findByPrimaryKey(primaryKey);
     }
 

@@ -29,6 +29,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -39,7 +41,32 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 @RequestScoped
 @Path("observation")
 public class ObservationResource extends AbstractResource<ObservationService, ObservationDAO, Observation, Long> {
-       
+    
+    @XmlRootElement
+    public static class Observations extends com.andersoncarlosfs.model.entities.Observation {
+
+        private com.andersoncarlosfs.model.entities.Observation observation;
+
+        public Observations() {
+        }
+        
+        private Observations(com.andersoncarlosfs.model.entities.Observation observation) {
+            this.observation  = observation;
+        }
+
+        @XmlTransient
+        @Override
+        public Picture getPicture() {
+            return observation.getPicture();
+        }
+
+        private void setPictureAsAdress(UriInfo context) {
+            observation.getPicture().setData(context.getBaseUriBuilder().path(PictureResource.class).path(observation.getPrimaryKey().toString()).build().toString().getBytes());
+        }
+         
+    }
+
+    
     @Inject
     private ObservationService service;
     
@@ -77,8 +104,8 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
             output.append(line);
         }
         file.delete();
-        Picture picture = new Picture(data, new HashSet<Observation>());
-        Observation observation = new Observation(output.toString(), new Date(), picture);
+        Picture picture = new Picture(data, new HashSet<com.andersoncarlosfs.model.entities.Observation>());
+        com.andersoncarlosfs.model.entities.Observation observation = new com.andersoncarlosfs.model.entities.Observation(output.toString(), new Date(), picture);
         picture.getObservations().add(observation);
         getService().getDAO().create(observation);
         return context.getAbsolutePathBuilder().path(observation.getPrimaryKey().toString()).build().toString();
@@ -103,5 +130,5 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         stream.close();
         return create(buffer.toByteArray(), context);
     }
-
+    
 }
