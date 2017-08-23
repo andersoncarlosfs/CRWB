@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -83,6 +84,7 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
      *
      * @return the idPicture
      */
+    @XmlTransient
     public Long getIdPicture() {
         return idPicture;
     }
@@ -150,6 +152,7 @@ public class Picture extends AbstractEntity<Long> implements Serializable {
      * @see AbstractEntity#getPrimaryKey()
      * @return the idPicture
      */
+    @XmlElement(name = "id")
     @Override
     public Long getPrimaryKey() {
         return idPicture;

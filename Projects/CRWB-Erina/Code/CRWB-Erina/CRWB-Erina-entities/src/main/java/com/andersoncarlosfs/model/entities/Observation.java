@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -95,6 +96,7 @@ public class Observation extends AbstractEntity<Long> implements Serializable {
      * 
      * @return the idObservation
      */
+    @XmlTransient
     public Long getIdObservation() {
         return idObservation;
     }
@@ -209,6 +211,7 @@ public class Observation extends AbstractEntity<Long> implements Serializable {
      * @see AbstractEntity#getPrimaryKey()
      * @return the idObservation
      */
+    @XmlElement(name = "id")
     @Override
     public Long getPrimaryKey() {
         return idObservation;
