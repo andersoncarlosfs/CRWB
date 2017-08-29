@@ -6,6 +6,7 @@
 package com.andersoncarlosfs.model.benchmark.wrappers;
 
 import com.andersoncarlosfs.model.benchmark.AbstractWrapperTest;
+import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
 import java.util.Date;
 
@@ -13,20 +14,13 @@ import java.util.Date;
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class ObservationWrapperTest extends AbstractWrapperTest<Observation, Long> {
+public class ObservationWrapperTest extends AbstractWrapperTest<ObservationWrapper, Observation, Long> {
 
-    private final Observation object = new Observation(new com.andersoncarlosfs.model.entities.Observation("Text", new Date(), new Picture()));
+    private final ObservationWrapper object = new ObservationWrapper(new Observation("Text", new Date(), new Picture()));
 
     @Override
-    public Observation getObject() {
+    public ObservationWrapper getObject() {
         return object;
-    }
-
-    @Override
-    public Observation getCloneModified() throws CloneNotSupportedException {
-        Observation modified = super.getCloneModified();
-        modified.setText("Modified");
-        return modified;
     }
 
 }

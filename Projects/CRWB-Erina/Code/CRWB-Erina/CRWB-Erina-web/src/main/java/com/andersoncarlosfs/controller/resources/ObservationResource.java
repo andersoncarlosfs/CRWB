@@ -7,6 +7,7 @@ package com.andersoncarlosfs.controller.resources;
 
 import com.andersoncarlosfs.controller.services.ObservationService;
 import com.andersoncarlosfs.model.AbstractResource;
+import com.andersoncarlosfs.model.benchmark.wrappers.ObservationWrapper;
 import com.andersoncarlosfs.model.daos.ObservationDAO;
 import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
@@ -23,9 +24,12 @@ import java.util.HashSet;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -39,10 +43,10 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 @RequestScoped
 @Path("observation")
 public class ObservationResource extends AbstractResource<ObservationService, ObservationDAO, Observation, Long> {
-    
+
     @Inject
     private ObservationService service;
-    
+
     /**
      *
      * @return the service
@@ -51,7 +55,7 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
     protected ObservationService getService() {
         return service;
     }
-    
+
     /**
      * Create
      *
@@ -83,11 +87,11 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         getService().getDAO().create(observation);
         return context.getAbsolutePathBuilder().path(observation.getPrimaryKey().toString()).build().toString();
     }
-   
+
     /**
      * Create
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -103,5 +107,22 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         stream.close();
         return create(buffer.toByteArray(), context);
     }
-    
+
+    /**
+     * Find
+     *
+     * @param primaryKey
+     * @param eager
+     * @param context
+     * @return
+     */
+    @GET
+    @Path("a/{identificator}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public ObservationWrapper findByPrimaryKeys(@PathParam("identificator") Long primaryKey, @QueryParam("eager") boolean eager, @Context UriInfo context) {
+        ObservationWrapper observation = new ObservationWrapper(super.findByPrimaryKey(primaryKey, eager, context));
+        //observation
+        return observation;
+    }
+
 }
