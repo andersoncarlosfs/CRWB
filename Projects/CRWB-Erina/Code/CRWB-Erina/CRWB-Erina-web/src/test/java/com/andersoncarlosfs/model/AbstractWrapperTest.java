@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.andersoncarlosfs.model.benchmark;
+package com.andersoncarlosfs.model;
 
+import com.andersoncarlosfs.model.AbstractWrapper;
 import com.andersoncarlosfs.model.AbstractEntity;
 import static org.junit.Assert.*;
 import org.junit.Test;

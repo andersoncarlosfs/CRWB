@@ -8,6 +8,7 @@ package com.andersoncarlosfs.controller.resources;
 import com.andersoncarlosfs.controller.services.ObservationService;
 import com.andersoncarlosfs.model.AbstractResource;
 import com.andersoncarlosfs.model.benchmark.wrappers.ObservationWrapper;
+import com.andersoncarlosfs.model.benchmark.wrappers.PictureWrapper;
 import com.andersoncarlosfs.model.daos.ObservationDAO;
 import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
@@ -42,7 +43,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  */
 @RequestScoped
 @Path("observation")
-public class ObservationResource extends AbstractResource<ObservationService, ObservationDAO, Observation, Long> {
+public class ObservationResource extends AbstractResource<ObservationService, ObservationDAO, ObservationWrapper, Observation, Long> {
 
     @Inject
     private ObservationService service;
@@ -54,6 +55,11 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
     @Override
     protected ObservationService getService() {
         return service;
+    }
+    
+    @Override
+    protected ObservationWrapper wrap(Observation entity, UriInfo context) {
+        return new ObservationWrapper(entity, context);
     }
 
     /**
@@ -106,23 +112,6 @@ public class ObservationResource extends AbstractResource<ObservationService, Ob
         buffer.flush();
         stream.close();
         return create(buffer.toByteArray(), context);
-    }
-
-    /**
-     * Find
-     *
-     * @param primaryKey
-     * @param eager
-     * @param context
-     * @return
-     */
-    @GET
-    @Path("a/{identificator}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public ObservationWrapper findByPrimaryKeys(@PathParam("identificator") Long primaryKey, @QueryParam("eager") boolean eager, @Context UriInfo context) {
-        ObservationWrapper observation = new ObservationWrapper(super.findByPrimaryKey(primaryKey, eager, context));
-        //observation
-        return observation;
     }
 
 }

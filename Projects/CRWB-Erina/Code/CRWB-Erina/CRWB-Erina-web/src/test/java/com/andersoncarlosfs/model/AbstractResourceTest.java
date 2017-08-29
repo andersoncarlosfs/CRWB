@@ -22,7 +22,7 @@ import org.junit.BeforeClass;
  * @param <S> the entity type
  * @param <T> the identifier type
  */
-public abstract class AbstractServiceTest<S extends AbstractEntity<T>, T extends Comparable<T>> extends JerseyTest {
+public abstract class AbstractResourceTest<S extends AbstractEntity<T>, T extends Comparable<T>> extends JerseyTest {
 
     /**
      *

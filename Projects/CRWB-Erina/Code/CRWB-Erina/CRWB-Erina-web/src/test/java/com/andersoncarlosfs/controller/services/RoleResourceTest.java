@@ -5,14 +5,14 @@
  */
 package com.andersoncarlosfs.controller.services;
 
-import com.andersoncarlosfs.model.AbstractServiceTest;
+import com.andersoncarlosfs.model.AbstractResourceTest;
 import com.andersoncarlosfs.model.entities.Role;
 
 /**
  *
  * @author anderson
  */
-public class RoleServiceTest extends AbstractServiceTest<Role, Short> {
+public class RoleResourceTest extends AbstractResourceTest<Role, Short> {
 
     private Role entity = new Role("Test");
     

@@ -6,7 +6,7 @@
 package com.andersoncarlosfs.model.benchmark.wrappers;
 
 import com.andersoncarlosfs.model.AbstractWrapper;
-import com.andersoncarlosfs.model.entities.Observation;
+import com.andersoncarlosfs.model.entities.Role;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,16 +16,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author anderson
  */
 @XmlRootElement(name = "observation")
-public class ObservationWrapper extends AbstractWrapper<Observation, Long> {
+public class RoleWrapper extends AbstractWrapper<Role, Short> {
 
-    public ObservationWrapper() {
+    public RoleWrapper() {
     }
 
-    public ObservationWrapper(Observation entity) {
+    public RoleWrapper(Role entity) {
         super(entity);
     }
 
-    public ObservationWrapper(Observation entity, UriInfo context) {
+    public RoleWrapper(Role entity, UriInfo context) {
         super(entity, context);
     }
 
@@ -36,39 +36,22 @@ public class ObservationWrapper extends AbstractWrapper<Observation, Long> {
      */
     @XmlElement(name = "id")
     @Override
-    public Long getPrimaryKey() {
+    public Short getPrimaryKey() {
         return super.getPrimaryKey(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @XmlElement(name = "date")
-    public Long getDate() {
-        return getEntity().getDate().getTime();
+    @XmlElement(name = "name")
+    public String getName() {
+        return getEntity().getName();
     }
 
     /**
      *
      * @return the text
      */
-    @XmlElement(name = "text")
-    public String getText() {
-        return getEntity().getText();
-    }
-
-    /**
-     *
-     * @param text the text to set
-     */
-    public void setText(String text) {
-        getEntity().setText(text);
-    }
-
-    /**
-     *
-     * @return the picture
-     */
-    @XmlElement(name = "picture")
-    public String getPicture() {
-        return new PictureWrapper(getEntity().getPicture(), getContext()).getData();
+    @XmlElement(name = "description")
+    public String getDescription() {
+        return getEntity().getDescription();
     }
 
 }

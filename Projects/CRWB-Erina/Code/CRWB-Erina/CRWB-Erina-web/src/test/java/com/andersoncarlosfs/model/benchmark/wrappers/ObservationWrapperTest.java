@@ -5,7 +5,7 @@
  */
 package com.andersoncarlosfs.model.benchmark.wrappers;
 
-import com.andersoncarlosfs.model.benchmark.AbstractWrapperTest;
+import com.andersoncarlosfs.model.AbstractWrapperTest;
 import com.andersoncarlosfs.model.entities.Observation;
 import com.andersoncarlosfs.model.entities.Picture;
 import java.util.Date;

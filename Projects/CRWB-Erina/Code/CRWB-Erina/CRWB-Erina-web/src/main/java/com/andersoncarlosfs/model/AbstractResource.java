@@ -6,6 +6,7 @@
 package com.andersoncarlosfs.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,41 +25,71 @@ import javax.ws.rs.core.UriInfo;
  * Abstract class to manipulate Beans
  *
  * @author Anderson Carlos Ferreira da Silva
+ * @param <X> the service type
  * @param <V> the service type
  * @param <U> the dao type
  * @param <S> the entity type
  * @param <T> the identifier type
  */
-public abstract class AbstractResource<V extends AbstractService<U, S, T>, U extends AbstractDAO<S, T>, S extends AbstractEntity<T>, T extends Comparable<T>> implements Serializable {
+public abstract class AbstractResource<V extends AbstractService<U, S, T>, U extends AbstractDAO<S, T>, X extends AbstractWrapper<S, T>, S extends AbstractEntity<T>, T extends Comparable<T>> implements Serializable {
 
     /**
      *
      * @return the service
      */
     protected abstract V getService();
-    
+
+    /**
+     * Wrap
+     *
+     * @param entity
+     * @param context
+     * @return
+     */
+    protected abstract X wrap(S entity, UriInfo context);
+
+    /**
+     * Wrap
+     *
+     * @return
+     */
+    private List<X> wrap(List<S> entities, boolean eager, UriInfo context) {
+        List<X> objects = new LinkedList<>();
+        // 
+        if (eager) {
+            for (S s : entities) {
+                objects.add(wrap(s, null));
+            }
+        } else {
+            for (S s : entities) {
+                objects.add(wrap(s, context));
+            }
+        }
+        return objects;
+    }
+
     /**
      * Create
      *
-     * @param entity
+     * @param object
      */
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(S entity) {
-        getService().getDAO().create(entity);
+    public void create(X object) {
+        getService().getDAO().create(object.getEntity());
     }
 
     /**
      * Update
      *
      * @param primaryKey
-     * @param entity
+     * @param object
      */
     @PUT
     @Path("{identificator}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void update(@PathParam("identificator") T primaryKey, S entity) {
-        getService().getDAO().update(entity);
+    public void update(@PathParam("identificator") T primaryKey, X object) {
+        getService().getDAO().update(object.getEntity());
     }
 
     /**
@@ -83,8 +114,11 @@ public abstract class AbstractResource<V extends AbstractService<U, S, T>, U ext
     @GET
     @Path("{identificator}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public S findByPrimaryKey(@PathParam("identificator") T primaryKey, @QueryParam("eager") boolean eager, @Context UriInfo context) {
-        return getService().getDAO().findByPrimaryKey(primaryKey);
+    public X findByPrimaryKey(@PathParam("identificator") T primaryKey, @QueryParam("eager") boolean eager, @Context UriInfo context) {
+        if (eager) {
+            return wrap(getService().getDAO().findByPrimaryKey(primaryKey), null);
+        }
+        return wrap(getService().getDAO().findByPrimaryKey(primaryKey), context);
     }
 
     /**
@@ -102,12 +136,14 @@ public abstract class AbstractResource<V extends AbstractService<U, S, T>, U ext
     /**
      * List
      *
+     * @param eager
+     * @param context
      * @return the list
      */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<S> list() {
-        return getService().getDAO().list();
+    public List<X> list(@QueryParam("eager") boolean eager, @Context UriInfo context) {
+        return wrap(getService().getDAO().list(), eager, context);
     }
 
     /**
@@ -115,13 +151,15 @@ public abstract class AbstractResource<V extends AbstractService<U, S, T>, U ext
      *
      * @param from
      * @param to
+     * @param eager
+     * @param context
      * @return the list
      */
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<S> listByRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return getService().getDAO().listByRange(from, to);
+    public List<X> listByRange(@PathParam("from") Integer from, @PathParam("to") Integer to, @QueryParam("eager") boolean eager, @Context UriInfo context) {
+        return wrap(getService().getDAO().listByRange(from, to), eager, context);
     }
 
 }
