@@ -6,6 +6,7 @@
 package com.andersoncarlosfs.controller.application;
 
 import com.andersoncarlosfs.controller.resources.ObservationResource;
+import com.andersoncarlosfs.controller.resources.PictureResource;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
@@ -26,7 +27,10 @@ public class ApplicationConfiguration extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> resources = new HashSet<Class<?>>();
+        //
         resources.add(ObservationResource.class);
+        resources.add(PictureResource.class);
+        //
         resources.add(MultiPartFeature.class);
         return resources;
     }
