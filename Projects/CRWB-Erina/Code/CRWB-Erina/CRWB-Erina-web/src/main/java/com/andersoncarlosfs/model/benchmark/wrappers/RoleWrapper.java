@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.model.benchmark.wrappers;
 
+import com.andersoncarlosfs.controller.resources.RoleResource;
 import com.andersoncarlosfs.model.AbstractWrapper;
 import com.andersoncarlosfs.model.entities.Role;
 import javax.ws.rs.core.UriInfo;
@@ -27,6 +28,15 @@ public class RoleWrapper extends AbstractWrapper<Role, Short> {
 
     public RoleWrapper(Role entity, UriInfo context) {
         super(entity, context);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    protected Class<RoleResource> getResource() {
+        return RoleResource.class;
     }
 
     /**

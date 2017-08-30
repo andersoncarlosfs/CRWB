@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author anderson
  */
-@XmlRootElement(name = "observation")
+@XmlRootElement(name = "picture")
 public class PictureWrapper extends AbstractWrapper<Picture, Long> {
 
     public PictureWrapper() {
@@ -29,6 +29,15 @@ public class PictureWrapper extends AbstractWrapper<Picture, Long> {
 
     public PictureWrapper(Picture entity, UriInfo context) {
         super(entity, context);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    protected Class<PictureResource> getResource() {
+        return PictureResource.class;
     }
 
     /**
@@ -51,10 +60,7 @@ public class PictureWrapper extends AbstractWrapper<Picture, Long> {
         if (getEntity().getData() == null || getEntity().getData() == null) {
             return null;
         }
-        if (getContext() == null) {
-            return Base64.getEncoder().encodeToString(getEntity().getData());
-        }
-        return getContext().getBaseUriBuilder().path(PictureResource.class).path(getEntity().getPrimaryKey().toString()).build().toString();
+        return Base64.getEncoder().encodeToString(getEntity().getData());
     }
 
 }

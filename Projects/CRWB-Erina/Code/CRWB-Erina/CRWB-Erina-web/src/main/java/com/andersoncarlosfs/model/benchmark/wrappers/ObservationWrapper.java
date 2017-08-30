@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.model.benchmark.wrappers;
 
+import com.andersoncarlosfs.controller.resources.ObservationResource;
 import com.andersoncarlosfs.model.AbstractWrapper;
 import com.andersoncarlosfs.model.entities.Observation;
 import javax.ws.rs.core.UriInfo;
@@ -29,6 +30,15 @@ public class ObservationWrapper extends AbstractWrapper<Observation, Long> {
         super(entity, context);
     }
 
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    protected Class<ObservationResource> getResource() {
+        return ObservationResource.class;
+    }
+    
     /**
      *
      * @see AbstractEntity#getPrimaryKey()
@@ -68,7 +78,14 @@ public class ObservationWrapper extends AbstractWrapper<Observation, Long> {
      */
     @XmlElement(name = "picture")
     public String getPicture() {
-        return new PictureWrapper(getEntity().getPicture(), getContext()).getData();
+        PictureWrapper picture = new PictureWrapper(getEntity().getPicture(), getContext());
+        if (picture.getData() == null) {
+            return null;
+        }
+        if (getContext() == null) {
+            return picture.getData();
+        }
+        return picture.getURI().toString();      
     }
 
 }

@@ -6,6 +6,7 @@
 package com.andersoncarlosfs.model;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
 import java.util.UUID;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBContext;
@@ -35,6 +36,22 @@ public abstract class AbstractWrapper<S extends AbstractEntity<T>, T extends Com
     public AbstractWrapper(S entity, UriInfo context) {
         this.entity = entity;
         this.context = context;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @XmlTransient
+    protected abstract Class<? extends AbstractResource<?, ?, ? extends AbstractWrapper<S, T>, S, T>> getResource();
+
+    /**
+     * 
+     * @return 
+     */
+    @XmlTransient
+    public URI getURI() {
+        return context.getBaseUriBuilder().path(getResource()).path(entity.getPrimaryKey().toString()).build();    
     }
 
     /**
