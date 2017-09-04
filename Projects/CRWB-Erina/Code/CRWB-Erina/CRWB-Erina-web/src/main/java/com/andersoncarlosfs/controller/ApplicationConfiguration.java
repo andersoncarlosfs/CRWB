@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.andersoncarlosfs.controller.application;
+package com.andersoncarlosfs.controller;
 
 import com.andersoncarlosfs.controller.resources.ObservationResource;
 import com.andersoncarlosfs.controller.resources.PictureResource;
