@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.controller;
 
+import com.andersoncarlosfs.controller.filters.CORSResponseFilter;
 import com.andersoncarlosfs.controller.resources.ObservationResource;
 import com.andersoncarlosfs.controller.resources.PictureResource;
 import java.util.HashSet;
@@ -32,6 +33,8 @@ public class ApplicationConfiguration extends Application {
         resources.add(PictureResource.class);
         //
         resources.add(MultiPartFeature.class);
+        //
+        resources.add(CORSResponseFilter.class);
         return resources;
     }
     
